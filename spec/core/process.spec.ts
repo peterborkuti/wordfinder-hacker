@@ -1,7 +1,6 @@
-import { growWord } from '../../src/core/process';
-import { growPositionChains, growPositionChain } from '../../src/core/process';
-import { Dictionary, validWordCandidate, getWords } from '../../src/core/dictionary';
-import { LetterMatrix, positionChainToWord } from '../../src/core/lettermatrix';
+import { findWords, growPositionChain } from '../../src/core/process';
+import { LetterMatrix } from '../../src/core/lettermatrix';
+import { words } from 'src/core/words';
 
 describe('growPositionChain', () => {
   it('should grow an empty positionChain with all the possible positions', () => {
@@ -49,44 +48,33 @@ describe('growPositionChain', () => {
   });
 });
 
-describe('just a test', () => {
-it('should print something', () => {
-    const letters = new LetterMatrix('abcdbagxhj', 3, 3);
-    const dict = new Dictionary(['abba']);
+describe('findWords', () => {
+  function testFindWords(e: string[], letters: string, print = true) {
+    const word = findWords(letters, 3, 3);
 
-    const arr = [];
-    let cc = [[]];
-    for (let i = 0; i < letters.letters.length; i++) {
-      cc = cc.map(
-            c => growPositionChain(c, letters).
-                 filter(p => validWordCandidate(positionChainToWord(letters.letters, p), dict))).
-            reduce((a, c) => a.concat(c), []);
-      console.log(getWords(cc, letters.letters, dict));
-    }
+    if (print) { console.log(word); }
 
-  });
-});
+    e.forEach(w => {
+      it('should find "' + w + '" in "' + letters + '"', () => {
+        expect(word.indexOf(w) > -1).toBeTruthy();
+      });
+    });
+  }
 
-describe('growWord', () => {
-  it('should grow an empty word with empty dictionary or empty letters with one space', () => {
-    const letters = new LetterMatrix('', 0, 0);
-    const dictionary = new Dictionary([]);
-    const word = '';
-    const [words, positions] = growWord(word, [], letters, dictionary);
-    expect(words.length).toEqual(1);
-    expect(words[0]).toBe(' ');
-    expect(positions.length).toEqual(1);
-    expect(positions[0][0]).toEqual(-1);
-  });
+  testFindWords(
+      ['átok', 'ázott', 'dák', 'kád', 'kopott', 'kottáz', 'odáz',
+      'okád', 'okoz', 'ott', 'tok', 'top'],
+      'toptokdáz');
 
-  it('should grow any word with the neighbours of its last character', () => {
-    const letters = new LetterMatrix('abcdefghi', 3, 3);
-    const dictionary = new Dictionary([]);
-    const word = 'xyz';
-    const [words, positions] = growWord(word, [], letters, dictionary);
-    expect(words.length).toEqual(word.length + 1);
-    expect(words[0]).toBe(word + ' ');
-    expect(positions.length).toEqual(1);
-    expect(positions[0][0]).toEqual(-1);
-  });
+  testFindWords(
+      ['átló', 'gát', 'gátló', 'gátlómű', 'mól', 'tág', 'tám'],
+      'ágmtműólm');
+
+  testFindWords(
+    [],
+    'zámpsneas');
+  testFindWords(
+    [],
+    'kalnásjií');
+
 });

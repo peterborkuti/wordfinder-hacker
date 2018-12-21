@@ -1,6 +1,7 @@
-import { LetterMatrix } from './lettermatrix';
-import { Dictionary } from './dictionary';
+import { LetterMatrix, positionChainToWord } from './lettermatrix';
+import { Dictionary, validWordCandidate, getWords } from './dictionary';
 import { neighbours } from './matrix';
+import { words } from './words';
 
 /**
  * It gets all the valid neighbouring poisitions of the last position of the chain and
@@ -26,32 +27,23 @@ function growPositionChain(positionChain: number[], letters: LetterMatrix): numb
   return positionChains;
 }
 
-function growPositionChains(positionChains: number[] = [], letters: LetterMatrix): number[][] {
-  let chains = growPositionChain(positionChains, letters);
-  for (let i = 0; i < letters.letters.length; i++) {
-    const newChains = [];
-    chains.forEach(c => newChains.push(growPositionChain(c, letters)));
-    chains = newChains;
-    console.log(chains);
+function findWords(letters: string, rows: number, cols: number): string[] {
+  const letterm = new LetterMatrix(letters, cols, rows);
+  const dict = new Dictionary(words);
+
+  let wordList = [];
+  let cc = [[]];
+  for (let i = 0; i < letters.length; i++) {
+    cc = cc.
+            map(c =>
+              growPositionChain(c, letterm).
+              filter(p => validWordCandidate(positionChainToWord(letters, p), dict))).
+            reduce((a, c) => a.concat(c), []);
+    const w = getWords(cc, letters, dict);
+    wordList = wordList.concat(w);
   }
 
-  return chains;
+  return wordList;
 }
 
-function growWord(word: string, positions: number[], letters: LetterMatrix, dictionary: Dictionary): [ string[], number[][] ] {
-  const words: string[] = [' '];
-  const newpos: number[][] = [[-1]];
-
-  return [ words, newpos ];
-}
-
-function growWords(words: string[], letters: LetterMatrix, dictionary: Dictionary): string[] {
-  return [];
-}
-
-function  findWordsInLetters(letters: LetterMatrix, dictionary: Dictionary): string[] {
-
-  return [];
-}
-
-export { growWord, growPositionChains, growPositionChain };
+export { findWords, growPositionChain };
