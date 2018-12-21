@@ -1,0 +1,50 @@
+#seper VERB epenthetic trans ,;
+#ugrik VERB epenthetic trans ,;
+#hipnotikus	ADJ bareT non_bareT low aff_an ,;
+#hipnotikus	ADJ ,;
+
+#fürdik	VERB ik_basic, füröd epenthetic;
+#fürdik	VERB , fürd, füröd ;
+
+#bátor   ADJ aff_an back bareT epenthetic low non_bareT SRC: fkp ,;
+#bátor   ADJ aff_an epenthetic low SRC: el ,;
+#szép	ADJ ,;
+#lát	VERB ,;
+#asztal	NOUN ,;
+
+#bő	ADJ aff_an low v_stem SRC: el ,;
+#kő     NOUN low poss_A shortening v_stem SRC: el ,;
+#kő     NOUN poss_optional v_stem SRC: fkp ,;
+#kő     NOUN shortening v_stem SRC: mi ,;
+#kő     NOUN SRC: fkp ,;
+mag	NOUN non_v_stem poss_jA v_stem SRC: el ,;
+#útfél	NOUN all_poss anp case defective_inflection fam front non_poss number sing SRC: fkp STR: út@fél , út@fél;
+útfél	NOUN SRC: el STR: út@fél , út@fél;
+üröm	NOUN epenthetic non_epenthetic ,;
+#törvényerejű	ADJ aff_an aff_lag front non_bareT SRC: fkp STR: törvény@erejű , törvény@erejű;
+#törvényerejű	ADJ aff_an low SRC: el STR: törvény@erejű , törvény@erejű;
+törvényerő	NOUN oa_stem SRC: fkp STR: törvény@erő , törvény@erő;
+#törvényerő	NOUN non_oa_stem oa_stem SRC: el STR: törvény@erő , törvény@erő;
+tő	NOUN shortening v_stem ,;
+szél	NOUN shortening non_shortening poss_optional ,;
+szagol	VERB epenthetic non_epenthetic trans ,;
+lúd	NOUN low shortening non_shortening poss_optional ,;
+darázs	NOUN low shortening ,;
+fazék	NOUN low shortening back ,;
+cselekedik	VERB sz-d-v_stem trans ,;
+cselekszik	VERB sz-d-v_stem trans ,;
+dumcsizik	VERB trans ,;
+lé	NOUN shortening v_stem non_v_stem non_shortening,;
+zokon	PREV	GOV: vesz ,;
+hoppon	GOV: marad	PREV,;
+tudtul 	GOV: ad	PREV,;
+tudomásul GOV: vesz	PREV,;
+óva	GOV: int	PREV,;
+pórul	GOV: jár	PREV,;
+szemügyre	GOV: vesz	PREV,;
+zöldágra	GOV: vergődik	PREV,;
+számba	GOV: vesz	PREV,;
+kétségbe	GOV: von	PREV,;
+
+jó   ADJ low oa_stem v_stem SRC: fkp STR: j|ó ,;
+jó   NOUN low oa_stem v_stem SRC: fkp STR: j|ó ,;
