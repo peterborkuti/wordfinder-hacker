@@ -1,30 +1,5 @@
-import { Dictionary, isInSortedArray, eq, findInSortedArray } from '../../src/core/dictionary';
+import { isInSortedArray, findInSortedArray } from '../../src/core/dictionary';
 import { words } from '../../src/core/words';
-
-describe('dictionary', () => {
-  it('should create', () => {
-    expect(new Dictionary([])).toBeTruthy();
-  });
-});
-
-describe('eq', () => {
-  it('should find', () => {
-    expect(eq('a', 'b')).toBeFalsy();
-    expect(eq('a', 'a')).toBeTruthy();
-    expect(eq('a', 'b', false)).toBeFalsy();
-    expect(eq('a', 'a', false)).toBeTruthy();
-    expect(eq('ab', 'a', false)).toBeTruthy();
-    expect(eq('xab', 'a', false)).toBeFalsy();
-  });
-  it('should find hungarian letters', () => {
-    expect(eq('á', 'b')).toBeFalsy();
-    expect(eq('á', 'á')).toBeTruthy();
-    expect(eq('ű', 'ű')).toBeTruthy();
-    expect(eq('ő', 'ő')).toBeTruthy();
-    expect(eq('űőú', 'űő', false)).toBeTruthy();
-    expect(eq('xőű', 'őű', false)).toBeFalsy();
-  });
-});
 
 describe('isInSortedArray', () => {
   it('should not find anything in an empty array', () => {

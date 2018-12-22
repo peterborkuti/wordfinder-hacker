@@ -1,47 +1,13 @@
 import { positionChainToWord } from './lettermatrix';
-/**
- * Contains the words which are no longer than as set (default is 9 (=3x3 matrix))
- * and transforms them for easy processing
- */
-class Dictionary {
-  public readonly dictionary: string[];
-  constructor(sortedDictionary: string[], wordCount = -1, maxWordLength = 9) {
-    if (wordCount === -1) {
-      this.dictionary = sortedDictionary;
-    } else {
-      this.dictionary = generateRandomWords(wordCount, maxWordLength).sort();
-    }
-  }
-}
 
-function generateRandomWords(wordCount: number, maxWordLength: number): string[] {
-  return new Array(wordCount).fill('').map(() => generateRandomWord(maxWordLength));
-}
-
-function generateRandomWord(maxWordLength: number): string {
-  return new Array(randBetween(3, maxWordLength)).
-    fill('').map(() => getRandomChar()).join('');
-}
-
-function randBetween(low: number, high: number) {
-  return Math.floor(Math.random() * (high - low + 1) + low);
-}
-
-function getRandomChar(): string {
-  const a = 'a'.charCodeAt(0);
-  const z = 'z'.charCodeAt(0);
-
-  return String.fromCharCode(randBetween(a, z));
-}
-
-function validWordCandidate(word: string, dict: Dictionary): boolean {
-  const isValid = isInSortedArray(word, dict.dictionary, false);
+function validWordCandidate(word: string, dict: string[]): boolean {
+  const isValid = isInSortedArray(word, dict, false);
 
   return isValid;
 }
 
-function validWord(word: string, dict: Dictionary): boolean {
-  return isInSortedArray(word, dict.dictionary, true);
+function validWord(word: string, dict: string[]): boolean {
+  return isInSortedArray(word, dict, true);
 }
 
 function eq(longer: any, shorter: any, exactEqual = true) {
@@ -78,14 +44,15 @@ function findInSortedArray(whatToFind: any, whereToFind: any[], exactEqual = tru
   return binarySearch(whereToFind, 0, whereToFind.length - 1, whatToFind, exactEqual);
 }
 
-function getWords(positionChains: number[][], letters: string, dict: Dictionary): string[] {
+function getWords(positionChains: number[][], letters: string, dict: string[]): string[] {
     const words = positionChains.filter(p => p.length >= 3).
                   map(p => positionChainToWord(letters, p)).
-                  filter(word => validWord(word, dict));
+                  filter(word => validWord(word, dict)).
+                  sort();
 
-    const uniqWords = words.sort().filter((w, i, arr) => findInSortedArray(w, arr) === i);
+    const uniqWords = words.filter((w, i, arr) => findInSortedArray(w, arr) === i);
 
     return uniqWords;
 }
 
-export { Dictionary, validWordCandidate, getWords, isInSortedArray, eq, findInSortedArray };
+export { validWordCandidate, getWords, isInSortedArray, findInSortedArray };

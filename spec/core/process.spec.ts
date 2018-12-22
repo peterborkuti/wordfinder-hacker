@@ -49,7 +49,7 @@ describe('growPositionChain', () => {
 });
 
 describe('findWords', () => {
-  function testFindWords(e: string[], letters: string, print = true) {
+  function testFindWords(e: string[], letters: string, print = false) {
     const word = findWords(letters, 3, 3);
 
     if (print) { console.log(word); }
@@ -67,7 +67,7 @@ describe('findWords', () => {
       'toptokdáz');
 
   testFindWords(
-      ['átló', 'gát', 'gátló', 'gátlómű', 'mól', 'tág', 'tám'],
+      ['átló', 'gát', 'gátló', /*'gátlómű',*/ 'mól', 'tág', 'tám'],
       'ágmtműólm');
 
   testFindWords(

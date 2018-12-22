@@ -1,5 +1,5 @@
 import { LetterMatrix, positionChainToWord } from './lettermatrix';
-import { Dictionary, validWordCandidate, getWords } from './dictionary';
+import { validWordCandidate, getWords } from './dictionary';
 import { neighbours } from './matrix';
 import { words } from './words';
 
@@ -29,7 +29,6 @@ function growPositionChain(positionChain: number[], letters: LetterMatrix): numb
 
 function findWords(letters: string, rows: number, cols: number): string[] {
   const letterm = new LetterMatrix(letters, cols, rows);
-  const dict = new Dictionary(words);
 
   let wordList = [];
   let cc = [[]];
@@ -37,9 +36,9 @@ function findWords(letters: string, rows: number, cols: number): string[] {
     cc = cc.
             map(c =>
               growPositionChain(c, letterm).
-              filter(p => validWordCandidate(positionChainToWord(letters, p), dict))).
+              filter(p => validWordCandidate(positionChainToWord(letters, p), words))).
             reduce((a, c) => a.concat(c), []);
-    const w = getWords(cc, letters, dict);
+    const w = getWords(cc, letters, words);
     wordList = wordList.concat(w);
   }
 
