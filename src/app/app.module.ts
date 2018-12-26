@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +13,9 @@ import { WordlistComponent } from './wordlist/wordlist.component';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { WordComponent } from './word/word.component';
+import { ScreenComponent } from './screen/screen.component';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatRadioModule, MatCardModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -20,14 +23,22 @@ import { WordComponent } from './word/word.component';
     AppComponent,
     LetterinputComponent,
     WordlistComponent,
-    WordComponent
+    WordComponent,
+    ScreenComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     [StoreModule.forRoot({ wordfinder: wordFinderReducer })],
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
