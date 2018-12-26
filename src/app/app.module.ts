@@ -12,13 +12,15 @@ import { wordFinderReducer } from '../store/reducers';
 import { WordlistComponent } from './wordlist/wordlist.component';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { WordComponent } from './word/word.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LetterinputComponent,
-    WordlistComponent
+    WordlistComponent,
+    WordComponent
   ],
   imports: [
     BrowserModule,
