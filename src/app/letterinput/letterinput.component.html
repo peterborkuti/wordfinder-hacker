@@ -1,5 +1,17 @@
-<div>
-  <label>letters:
-    <input [(ngModel)]="letters" placeholder="letters">
-  </label>
-</div>
+<form [formGroup]="lettersForm" novalidate>
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Letters for word-creation</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="letters" matInput #lettersInput maxlength="9" placeholder="abcdefghi" formControlName="lettersInput">
+            <mat-hint align="end">{{lettersInput.value.length}} / 9</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
