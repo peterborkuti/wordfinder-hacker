@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { WordFinderState } from '../../store/model';
 import { LettersInput } from '../../store/actions';
 
-import { FormBuilder, Validators } from '@angular/forms';
+import {Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-letterinput',
@@ -11,26 +11,17 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./letterinput.component.less']
 })
 export class LetterinputComponent implements OnInit {
-  lettersForm = this.fb.group({
-    lettersInput: [null, Validators.compose([
-      Validators.required, Validators.minLength(9), Validators.maxLength(9)])
-    ]
-  });
 
-  _letters = '';
+  lettersInputControl =
+    new FormControl(
+          null,
+          Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9)])
+        );
 
-  constructor(private store: Store<WordFinderState>, private fb: FormBuilder) {}
+  constructor(private store: Store<WordFinderState>) {}
 
-  @Input()
-  public set letters(val: string) {
-    this._letters = val;
-    if (val.length === 9) {
-      this.store.dispatch(new LettersInput({letters: val}));
-    }
-  }
-
-  public get letters(): string {
-    return this._letters;
+  lettersChange(inputValue: string) {
+      this.store.dispatch(new LettersInput({letters: (inputValue.length === 9) ? inputValue : ''}));
   }
 
   ngOnInit() {
