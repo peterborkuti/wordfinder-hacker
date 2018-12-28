@@ -1,20 +1,16 @@
-<form [formGroup]="wordlistForm" novalidate>
-  <mat-card class="shipping-card">
-    <mat-card-header>
-      <mat-card-title>Words from the given letters</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-              <mat-radio-group formControlName="wordListRadioGroup">
-                  <mat-radio-button *ngFor="let word of wordfinder$|async; let i = index" [value]="i">
-                      {{ word }}
-                  </mat-radio-button>
-              </mat-radio-group>
-          </mat-form-field>
-        </div>
+<mat-card class="shipping-card">
+  <mat-card-header>
+    <mat-card-title>Words from the given letters</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="row">
+      <div class="col">
+        <mat-radio-group [(ngModel)]="selectedWordForResettingTheList" (change)="wordSelection($event.value)">
+            <mat-radio-button *ngFor="let word of words$|async; let i = index" [value]="i">
+                {{ word }}
+            </mat-radio-button>
+        </mat-radio-group>
       </div>
-    </mat-card-content>
-  </mat-card>
-</form>
+    </div>
+  </mat-card-content>
+</mat-card>

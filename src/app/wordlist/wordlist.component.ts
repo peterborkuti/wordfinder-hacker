@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { WordFinderState } from '../../store/model';
+import * as Model from '../../store/model';
+import { WordSelection } from '../../store/actions';
 
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-wordlist',
@@ -13,17 +11,26 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./wordlist.component.less']
 })
 export class WordlistComponent implements OnInit {
-  wordlistForm = this.fb.group({
-    wordList: [null, Validators.required],
-  });
+  selectedWordForResettingTheList = null;
 
-  wordfinder$: Observable<WordFinderState>;
+  words$: Observable<string[]>;
 
-  constructor(private store: Store<WordFinderState>, private fb: FormBuilder) {
-    this.wordfinder$ = store.pipe(select('wordfinder'), map(o => o.words));
-  }
+  private letters$: Observable<string>;
+
+  constructor(private store: Store<Model.WordFinderState>) {
+    this.words$ = store.pipe(select(Model.selectWords));
+    this.letters$ = store.pipe(select(Model.selectLetters));
+    this.letters$.subscribe({next: this.resetWordList.bind(this) });
+   }
 
   ngOnInit() {
   }
 
+  wordSelection(value: string) {
+    this.store.dispatch(new WordSelection({wordIndex: +value}));
+  }
+
+  resetWordList() {
+    this.selectedWordForResettingTheList = null;
+  }
 }
