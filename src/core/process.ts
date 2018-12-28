@@ -27,10 +27,11 @@ function growPositionChain(positionChain: number[], letters: LetterMatrix): numb
   return positionChains;
 }
 
-function findWords(letters: string, rows: number, cols: number): string[] {
+function findWords(letters: string, rows: number, cols: number): [string[], number[][]] {
   const letterm = new LetterMatrix(letters, cols, rows);
 
   let wordList = [];
+  let chainList = [];
   let cc = [[]];
   for (let i = 0; i < letters.length; i++) {
     cc = cc.
@@ -38,11 +39,12 @@ function findWords(letters: string, rows: number, cols: number): string[] {
               growPositionChain(c, letterm).
               filter(p => validWordCandidate(positionChainToWord(letters, p), words))).
             reduce((a, c) => a.concat(c), []);
-    const w = getWords(cc, letters, words);
+    const [w, chains] = getWords(cc, letters, words);
     wordList = wordList.concat(w);
+    chainList = chainList.concat(chains);
   }
 
-  return wordList;
+  return [wordList, chainList];
 }
 
 export { findWords, growPositionChain };

@@ -1,5 +1,10 @@
 import { positionChainToWord } from './lettermatrix';
 
+export interface ChainWord {
+  chain: number[];
+  word: string;
+}
+
 function validWordCandidate(word: string, dict: string[]): boolean {
   const isValid = isInSortedArray(word, dict, false);
 
@@ -44,15 +49,20 @@ function findInSortedArray(whatToFind: any, whereToFind: any[], exactEqual = tru
   return binarySearch(whereToFind, 0, whereToFind.length - 1, whatToFind, exactEqual);
 }
 
-function getWords(positionChains: number[][], letters: string, dict: string[]): string[] {
-    const words = positionChains.filter(p => p.length >= 3).
-                  map(p => positionChainToWord(letters, p)).
-                  filter(word => validWord(word, dict)).
-                  sort();
+function chain_word_sorter(a, b): number {
+  return (a.word < b.word) ? -1 : ((a.word === b.word) ? 0 : 1);
+}
 
-    const uniqWords = words.filter((w, i, arr) => findInSortedArray(w, arr) === i);
+function getWords(positionChains: number[][], letters: string, dict: string[]): [string[], number[][]] {
+    const chain_words = positionChains.filter(p => p.length >= 3).
+                  map(p => ({'chain': p, 'word': positionChainToWord(letters, p)}) ).
+                  filter(chain_word => validWord(chain_word.word, dict)).
+                  sort(chain_word_sorter);
 
-    return uniqWords;
+    const words = chain_words.map(cw => cw.word);
+    const uniqWords = chain_words.filter((cw, i) => findInSortedArray(cw.word, words) === i);
+
+    return [uniqWords.map(cw => cw.word), uniqWords.map(cw => cw.chain)];
 }
 
 export { validWordCandidate, getWords, isInSortedArray, findInSortedArray };

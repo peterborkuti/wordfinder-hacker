@@ -12,13 +12,13 @@ import { map,  } from 'rxjs/operators';
   styleUrls: ['./word.component.less']
 })
 export class WordComponent implements OnInit {
-  wordfinder$: Observable<WordFinderState>;
+  chainfinder$: Observable<WordFinderState>;
 
   constructor(private store: Store<WordFinderState>) {
-    this.wordfinder$ =
+    this.chainfinder$ =
       store.pipe(
         select('wordfinder'),
-        map(o => (o.wordIndexToShow > -1) ? o.words[o.wordIndexToShow] : ''));
+        map(o => (o.wordIndexToShow > -1) ? o.chains[o.wordIndexToShow] : []));
   }
 
   ngOnInit() {

@@ -11,10 +11,12 @@ export function wordFinderReducer(
 
   switch (action.type) {
     case Actions.ActionTypes.LettersInput:
+        const [words, chains] = findWords(action.payload.letters, 3, 3);
         newState =
           new WordFinderState(
             action.payload.letters,
-            findWords(action.payload.letters, 3, 3)
+            words,
+            chains
           );
         return newState;
 
@@ -23,6 +25,7 @@ export function wordFinderReducer(
             new WordFinderState(
               state.letters,
               state.words,
+              state.chains,
               action.payload.wordIndex
             );
         return newState;
