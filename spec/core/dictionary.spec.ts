@@ -85,12 +85,12 @@ describe('test with hungarian letters and small dictionary', () => {
 
 describe('test with hungarian letters and big (production) dictionary', () => {
   it('should find hungarian words', () => {
-    expect(isInSortedArray('zuzmó', words)).toBeTruthy();
-    expect(isInSortedArray('zuzmo', words)).toBeFalsy();
-    expect(isInSortedArray('zuhogó', words)).toBeTruthy();
-    expect(isInSortedArray('zúzottkő', words)).toBeTruthy();
-    expect(isInSortedArray('zűr', words, false)).toBeTruthy();
-    expect(isInSortedArray('zűrx', words, false)).toBeFalsy();
+    expect(isInSortedArray('zuzmó', words['hu'])).toBeTruthy();
+    expect(isInSortedArray('zuzmo', words['hu'])).toBeFalsy();
+    expect(isInSortedArray('zuhogó', words['hu'])).toBeTruthy();
+    expect(isInSortedArray('zúzottkő', words['hu'])).toBeTruthy();
+    expect(isInSortedArray('zűr', words['hu'], false)).toBeTruthy();
+    expect(isInSortedArray('zűrx', words['hu'], false)).toBeFalsy();
   });
 });
 
@@ -101,7 +101,7 @@ describe('test with real words from letters "toptokdáz"', () => {
 
   e.forEach(w => {
     it('should find the word"' + w + '"', () => {
-      expect(isInSortedArray(w, words)).toBeTruthy();
+      expect(isInSortedArray(w, words['hu'])).toBeTruthy();
     });
   });
 });

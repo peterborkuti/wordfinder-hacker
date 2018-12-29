@@ -50,7 +50,7 @@ describe('growPositionChain', () => {
 
 describe('findWords', () => {
   function testFindWords(e: string[], letters: string, print = false) {
-    const word = findWords(letters, 3, 3);
+    const [word, chain] = findWords(letters, 3, 3);
 
     if (print) { console.log(word); }
 
