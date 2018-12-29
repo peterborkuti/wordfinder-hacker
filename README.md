@@ -7,6 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 # create gh-pages
 
 ng build --prod --base-href "https://peterborkuti.github.io/wordfinder-hacker/"
+
 npx ngh --dir dist/wordfinder-hacker/
 
 
@@ -25,6 +26,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Running unit tests
 
 Run `npm test` to execute the pure unit tests with jasmine (without browser).
+
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
