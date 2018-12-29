@@ -1,17 +1,12 @@
 #!/bin/bash
 
-awk '{print length, $1}' allwords.txt|grep '^[3456789] '| awk '{print $2}' > allwords-2.txt
+echo -e 'const words: {[index: string]: string[]} = {};\n\n' > words.ts
 
-awk '{a="\047"; print a$1a","}' allwords-2.txt > allwords-3.txt
+cat words-*.ts >> words.ts
 
-cat allwords-3.txt|tr '\n' ' '|fold -s| sed -e 's/ $//;$s/,$//' > allwords-4.txt
-
-sed -e '1s/^/const words = [\n/' allwords-4.txt > words.ts
-
-echo -e "\n].sort();\n\nexport { words };\n\n" >> words.ts
+echo -e '\nexport { words };\n' >> words.ts
 
 cp words.ts ../src/core/.
 
-rm allwords-*
-rm words.*
 
+rm words.ts
