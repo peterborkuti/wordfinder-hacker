@@ -1,34 +1,35 @@
 import { WordFinderState } from './model';
 import { findWords } from '../core/process';
-import { Action } from '@ngrx/store';
-import * as Actions from './actions';
-import { ActionsUnion, ActionTypes, LettersInput, WordSelection } from './actions';
+import { ActionsUnion, ActionTypes, LettersInput, WordSelection, LanguageSelection } from './actions';
+
+function lettersOrLanguageChanged(letters: string, state: WordFinderState, languageCode: string): WordFinderState {
+  const [words, chains] = findWords(letters, 3, 3, languageCode);
+
+  const newState =
+    new WordFinderState(
+      letters,
+      words,
+      chains,
+      -1,
+      languageCode
+    );
+
+  return newState;
+}
 
 export function wordFinderReducer(
     state = new WordFinderState(),
-    action: Actions.ActionsUnion): WordFinderState {
-  let newState: WordFinderState;
+    action: ActionsUnion): WordFinderState {
 
   switch (action.type) {
-    case Actions.ActionTypes.LettersInput:
-        const [words, chains] = findWords(action.payload.letters, 3, 3);
-        newState =
-          new WordFinderState(
-            action.payload.letters,
-            words,
-            chains
-          );
-        return newState;
+    case ActionTypes.LettersInput:
+        return lettersOrLanguageChanged(action.payload.letters, state, state.languageCode);
 
-    case Actions.ActionTypes.WordSelection:
-        newState =
-            new WordFinderState(
-              state.letters,
-              state.words,
-              state.chains,
-              action.payload.wordIndex
-            );
-        return newState;
+    case ActionTypes.LanguageSelection:
+        return lettersOrLanguageChanged(state.letters, state, action.payload.languageCode);
+
+    case ActionTypes.WordSelection:
+        return state.setWordIndex(action.payload.wordIndex);
 
     default:
         return state;
