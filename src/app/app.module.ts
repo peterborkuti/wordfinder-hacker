@@ -13,7 +13,6 @@ import { WordlistComponent } from './wordlist/wordlist.component';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { WordComponent } from './word/word.component';
-import { ScreenComponent } from './screen/screen.component';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatRadioModule, MatCardModule, MatGridListModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,8 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     LetterinputComponent,
     WordlistComponent,
-    WordComponent,
-    ScreenComponent
+    WordComponent
   ],
   imports: [
     BrowserModule,
