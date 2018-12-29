@@ -27,7 +27,7 @@ function growPositionChain(positionChain: number[], letters: LetterMatrix): numb
   return positionChains;
 }
 
-function findWords(letters: string, rows: number, cols: number): [string[], number[][]] {
+function findWords(letters: string, rows: number, cols: number, langcode = 'hu'): [string[], number[][]] {
   const letterm = new LetterMatrix(letters, cols, rows);
 
   let wordList = [];
@@ -37,9 +37,9 @@ function findWords(letters: string, rows: number, cols: number): [string[], numb
     cc = cc.
             map(c =>
               growPositionChain(c, letterm).
-              filter(p => validWordCandidate(positionChainToWord(letters, p), words))).
+              filter(p => validWordCandidate(positionChainToWord(letters, p), words[langcode]))).
             reduce((a, c) => a.concat(c), []);
-    const [w, chains] = getWords(cc, letters, words);
+    const [w, chains] = getWords(cc, letters, words[langcode]);
     wordList = wordList.concat(w);
     chainList = chainList.concat(chains);
   }
