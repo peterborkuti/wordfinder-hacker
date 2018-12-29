@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WordFinderState } from '../../store/model';
+import { WordFinderState, selectLetters, selectChain } from '../../store/model';
+import { Tile, createTiles, colorTiles } from '../../core/tiles';
 
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map,  } from 'rxjs/operators';
 
 @Component({
   selector: 'app-word',
@@ -12,13 +12,20 @@ import { map,  } from 'rxjs/operators';
   styleUrls: ['./word.component.less']
 })
 export class WordComponent implements OnInit {
-  chainfinder$: Observable<WordFinderState>;
+  cols = 3;
+
+  chain$: Observable<number[]>;
+
+  letters$: Observable<string>;
+
+  tiles: Tile[] = createTiles('', [], this.cols * this.cols);
 
   constructor(private store: Store<WordFinderState>) {
-    this.chainfinder$ =
-      store.pipe(
-        select('wordfinder'),
-        map(o => (o.wordIndexToShow > -1) ? o.chains[o.wordIndexToShow] : []));
+    this.chain$ = store.pipe(select(selectChain));
+    this.chain$.subscribe({next: (chain) => this.tiles = colorTiles(chain, this.tiles) });
+
+    this.letters$ = store.pipe(select(selectLetters));
+    this.letters$.subscribe({next: (letters) => this.tiles = createTiles(letters) });
   }
 
   ngOnInit() {

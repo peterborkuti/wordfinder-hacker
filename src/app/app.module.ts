@@ -14,7 +14,7 @@ import { WordlistComponent } from './wordlist/wordlist.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { WordComponent } from './word/word.component';
 import { ScreenComponent } from './screen/screen.component';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatRadioModule, MatCardModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatRadioModule, MatCardModule, MatGridListModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -32,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     [StoreModule.forRoot({ wordfinder: wordFinderReducer })],
     StoreDevtoolsModule.instrument(),
+    MatGridListModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
