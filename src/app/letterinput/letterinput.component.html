@@ -5,7 +5,7 @@
   <mat-card-content>
     <div class="row">
       <div class="col">
-        <mat-form-field class="full-width">
+        <mat-form-field>
 
           <input #lettersInput
               (keyup)="lettersChange(lettersInput.value)"
@@ -14,6 +14,14 @@
 
           <mat-hint align="end">{{lettersInput.value.length}} / 9</mat-hint>
         </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-radio-group class="example-radio-group" (ngModel)="languageCode" (change)="languageChange($event.value)">
+          <mat-radio-button class="example-radio-button" *ngFor="let language of languages" [value]="language.code">
+            {{language.name}}
+          </mat-radio-button>
+        </mat-radio-group>
       </div>
     </div>
   </mat-card-content>
